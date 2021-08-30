@@ -5,17 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        String host = "localhost";
-        try (Socket clientSocket = new Socket(host, Server.PORT);
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
+        final String host = "netology.homework";
+        try (final Socket clientSocket = new Socket(host, Server.PORT);
+             final PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+             final BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             final Scanner scanner = new Scanner(System.in)
         ) {
-            out.println("our best client ever");
-            String resp = in.readLine();
-            System.out.println(resp);
+            while (true) {
+                final String serverResponse = in.readLine();
+                System.out.println(serverResponse);
+                if (serverResponse.endsWith("Bye!")) {
+                    return;
+                }
+                out.println(scanner.nextLine());
+            }
         }
     }
 }
