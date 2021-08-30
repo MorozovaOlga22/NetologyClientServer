@@ -8,13 +8,13 @@ import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        String host = "localhost";
-        try (Socket clientSocket = new Socket(host, Server.PORT);
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
+        final String host = "localhost";
+        try (final Socket clientSocket = new Socket(host, Server.PORT);
+             final PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+             final BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {
             out.println("our best client ever");
-            String resp = in.readLine();
+            final String resp = in.readLine();
             System.out.println(resp);
         }
     }

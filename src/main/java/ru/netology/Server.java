@@ -12,7 +12,7 @@ public class Server {
     public static final int PORT = 8085;
 
     @SuppressWarnings("InfiniteLoopStatement")
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         while (true) {
             try (final ServerSocket serverSocket = new ServerSocket(PORT);
                  final Socket clientSocket = serverSocket.accept(); // ждем подключения
@@ -24,6 +24,8 @@ public class Server {
                 final String name = in.readLine();
 
                 out.println(String.format("Hi %s, your port is %d", name, clientSocket.getPort()));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
